@@ -35,7 +35,12 @@ class RestaurantsTableViewController: UITableViewController, CLLocationManagerDe
             self.tableView.reloadData()
         }
     }
-
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError)
+    {
+        locationManager.stopUpdatingLocation()
+        
+                print(error)
+    }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return resturants.count
     }
@@ -94,12 +99,16 @@ class RestaurantsTableViewController: UITableViewController, CLLocationManagerDe
         task.resume()
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        // user's current location
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
         userLocation = locations[0]
-        
+        let long = userLocation!.coordinate.longitude;
+        let lat = userLocation!.coordinate.latitude;
+        //Do What ever you want with it
+        print("long = \(long)")
+        print("lat = \(lat)")
     }
+
     
     func getRestaurantDistance(lat: Double, long: Double) -> String {
         
