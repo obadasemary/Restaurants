@@ -27,9 +27,11 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
+	<array/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Restaurants App needs to know your location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Restaurants App always needs to know your location</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
