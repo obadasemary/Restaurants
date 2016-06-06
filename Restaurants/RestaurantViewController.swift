@@ -19,7 +19,7 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
     
     
     var restaurant: NSDictionary?
-//    var distanceInKM: String?
+    var distanceInKM: String?
     
     let locationManager = CLLocationManager()
     
@@ -74,6 +74,9 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
             openLabel.text = "Close Now!"
             openLabel.textColor = UIColor.redColor()
         }
+        
+        distanceLabel.text = "\(distanceInKM!) KM"
+
         
         // golocation
         locationManager.delegate = self

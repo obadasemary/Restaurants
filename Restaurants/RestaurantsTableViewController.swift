@@ -15,6 +15,9 @@ class RestaurantsTableViewController: UITableViewController, CLLocationManagerDe
     let locationManager = CLLocationManager()
     var userLocation: CLLocation?
     var distanceInKM: String?
+    
+    // 25.285646
+    // 51.535406
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +38,13 @@ class RestaurantsTableViewController: UITableViewController, CLLocationManagerDe
             self.tableView.reloadData()
         }
     }
+    
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError)
     {
         locationManager.stopUpdatingLocation()
-        
-                print(error)
+        print(error)
     }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return resturants.count
     }
@@ -56,13 +60,13 @@ class RestaurantsTableViewController: UITableViewController, CLLocationManagerDe
         let restaurantLong = resturants[indexPath.row]["geometry"]!["location"]!!["lng"] as? Double
         
         
-//        let distanceKM = getRestaurantDistance(restaurantLat, long: restaurantLong)
-//        
+        let distanceKM: String? = getRestaurantDistance(restaurantLat!, long: restaurantLong!)
+//
 //        print("lat \(restaurantLat)")
 //        print(restaurantLong)
         
-        cell.detailTextLabel?.text = getRestaurantDistance(restaurantLat!, long: restaurantLong!)
-//        distanceInKM = "\(distanceKM) KM"
+        cell.detailTextLabel?.text = "\(distanceKM!) KM"
+        distanceInKM = distanceKM
         
         return cell
     }
@@ -107,6 +111,8 @@ class RestaurantsTableViewController: UITableViewController, CLLocationManagerDe
         //Do What ever you want with it
         print("long = \(long)")
         print("lat = \(lat)")
+        
+        self.tableView.reloadData()
     }
 
     
@@ -121,9 +127,9 @@ class RestaurantsTableViewController: UITableViewController, CLLocationManagerDe
         
         distance = userLocation?.distanceFromLocation(restaurantLocation)
         
-//        let distanceKM = NSString(format: "%.2f", distance!)
+        let distanceKM = NSString(format: "%.2f", distance! / 100)
         
-        distanceLocationStr = String(distance)
+        distanceLocationStr = String(distanceKM)
         
         
         return distanceLocationStr!
@@ -141,6 +147,7 @@ class RestaurantsTableViewController: UITableViewController, CLLocationManagerDe
             
             let restaurantVC = segue.destinationViewController as! RestaurantViewController
             restaurantVC.restaurant = resturantSelected
+            restaurantVC.distanceInKM = distanceInKM
         }
     }
 }
